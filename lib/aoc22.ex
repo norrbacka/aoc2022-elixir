@@ -1,18 +1,22 @@
 defmodule Aoc22 do
-  @moduledoc """
-  Documentation for `Aoc22`.
-  """
+  defp get(day, year \\ 2022) do
+    url = "https://adventofcode.com/#{year}/day/#{day}/input"
+    user_cookie = [cookie: ["session=#{System.get_env("SESSION")}"]]
+    response = HTTPoison.get(url, %{}, hackney: user_cookie)
 
-  @doc """
-  Hello world.
+    case response do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        IO.puts(body)
 
-  ## Examples
+      {:ok, %HTTPoison.Response{status_code: 404}} ->
+        IO.puts("Not found...")
 
-      iex> Aoc22.hello()
-      :world
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        IO.inspect(reason)
+    end
+  end
 
-  """
   def hello do
-    :world
+    get(1, 2018)
   end
 end

@@ -14,6 +14,7 @@ defmodule Aoc22.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      applications: [:httpoison],
       extra_applications: [:logger]
     ]
   end
@@ -21,7 +22,8 @@ defmodule Aoc22.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:httpoison, "~> 1.8"}
     ]
   end
 end
