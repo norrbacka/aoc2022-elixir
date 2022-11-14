@@ -1,4 +1,4 @@
-defmodule Aoc22 do
+defmodule Helpers do
   defp download(day, year \\ 2022) do
     IO.puts("Downloading data for year #{year} and day #{day}...")
     url = "https://adventofcode.com/#{year}/day/#{day}/input"
@@ -17,7 +17,7 @@ defmodule Aoc22 do
     end
   end
 
-  defp get(day, year \\ 2022) do
+  def get(day, year \\ 2022) do
     file_path = "./lib/inputs/#{year}_#{day}.txt"
 
     case File.exists?(file_path) do
@@ -33,9 +33,5 @@ defmodule Aoc22 do
 
         get(day, year)
     end
-  end
-
-  def hello do
-    get(1, 2018)
   end
 end
