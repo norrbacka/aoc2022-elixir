@@ -15,7 +15,7 @@ defmodule Aoc.MixProject do
   def application do
     [
       applications: [:httpoison],
-      extra_applications: [:logger]
+      extra_applications: [:logger, :floki]
     ]
   end
 
@@ -23,7 +23,8 @@ defmodule Aoc.MixProject do
   defp deps do
     [
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:httpoison, "~> 1.8"}
+      {:httpoison, "~> 1.8"},
+      {:floki, "~> 0.34.0"}
     ]
   end
 end
