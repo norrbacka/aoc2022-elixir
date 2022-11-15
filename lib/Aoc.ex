@@ -1,4 +1,7 @@
 defmodule Aoc do
+  @moduledoc """
+  This is the main Advent Of Code module that wraps everything
+  """
   import Helpers
   import Year18Day1
 

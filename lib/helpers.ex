@@ -1,5 +1,8 @@
 defmodule Helpers do
 
+  @moduledoc """
+  Advent of code helper functions, like fetching input, submiting answers, and so forth.
+  """
   def parse(year_day_level) do
     [year, day, level] = to_string(year_day_level)
     |> String.codepoints()
@@ -28,7 +31,7 @@ defmodule Helpers do
         IO.puts("Not found...")
 
       {:error, %HTTPoison.Error{reason: reason}} ->
-        IO.inspect(reason)
+        IO.puts(reason)
     end
   end
 

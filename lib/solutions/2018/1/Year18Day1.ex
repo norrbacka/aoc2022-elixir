@@ -1,4 +1,7 @@
 defmodule Year18Day1 do
+  @moduledoc """
+  Solutions for Year 2018 and DAy 1
+  """
   def solve(input, 18_01_01) do
     input
     |> String.split()
