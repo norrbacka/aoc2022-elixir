@@ -1,14 +1,14 @@
 defmodule Helpers do
-
   @moduledoc """
   Advent of code helper functions, like fetching input, submiting answers, and so forth.
   """
   def parse(year_day_level) do
-    [year, day, level] = to_string(year_day_level)
-    |> String.codepoints()
-    |> Enum.chunk_every(2)
-    |> Enum.map(&Enum.join/1)
-    |> Enum.map(&String.to_integer/1)
+    [year, day, level] =
+      to_string(year_day_level)
+      |> String.codepoints()
+      |> Enum.chunk_every(2)
+      |> Enum.map(&Enum.join/1)
+      |> Enum.map(&String.to_integer/1)
 
     fixed_year = String.to_integer("20#{year}")
 
