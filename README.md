@@ -13,7 +13,9 @@ Then run the program using iex -S mix, and call the get method to get the answer
 We follow the principle YYDDLL where
 
 YY = Two last digit of the year, so for 2018 it would be 18
+
 DD = The days number in two digits, so for 24th of december it would be 24
+
 LL = Two digit number representing the level, meaning either 01 or 02
 
 ## Progress 2022
