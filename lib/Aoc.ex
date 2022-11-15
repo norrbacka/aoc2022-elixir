@@ -1,11 +1,11 @@
 defmodule Aoc do
   import Helpers
+  import Year18Day1
 
-  defp solve(1, 2018, input, level), do: Year18Day1.solve(input, level)
-
-  def get(day, level, year \\ 2022) do
-    input = get_input(day, year)
-    answer = solve(day, year, input, level)
+  def get(year_day_level) do
+    [year, day, level] = parse(year_day_level)
+    input = get_input(year, day)
+    answer = solve(input, year_day_level)
     %{year: year, day: day, level: level, answer: answer}
   end
 

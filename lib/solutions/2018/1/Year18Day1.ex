@@ -1,12 +1,12 @@
 defmodule Year18Day1 do
-  def solve(input, 1) do
+  def solve(input, 18_01_01) do
     input
     |> String.split()
     |> Enum.map(&String.to_integer/1)
     |> Enum.sum()
   end
 
-  def solve(input, 2) do
+  def solve(input, 18_01_02) do
     input
     |> String.split()
     |> Enum.map(&String.to_integer/1)

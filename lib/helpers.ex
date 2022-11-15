@@ -1,9 +1,20 @@
 defmodule Helpers do
-  alias HTTPoison.MaybeRedirect
+
+  def parse(year_day_level) do
+    [year, day, level] = to_string(year_day_level)
+    |> String.codepoints()
+    |> Enum.chunk_every(2)
+    |> Enum.map(&Enum.join/1)
+    |> Enum.map(&String.to_integer/1)
+
+    fixed_year = String.to_integer("20#{year}")
+
+    [fixed_year, day, level]
+  end
 
   def get_session, do: System.get_env("SESSION")
 
-  defp download(day, year \\ 2022) do
+  defp download(year, day) do
     IO.puts("Downloading data for year #{year} and day #{day}...")
     url = "https://adventofcode.com/#{year}/day/#{day}/input"
     user_cookie = [cookie: ["session=#{get_session()}"]]
@@ -21,7 +32,7 @@ defmodule Helpers do
     end
   end
 
-  def get_input(day, year \\ 2022) do
+  def get_input(year, day) do
     file_path = "./lib/inputs/#{year}_#{day}.txt"
 
     case File.exists?(file_path) do
@@ -29,16 +40,17 @@ defmodule Helpers do
         File.read!(file_path)
 
       false ->
-        content = download(day, year)
+        content = download(year, day)
 
         Path.expand(file_path)
         |> Path.absname()
         |> File.write!(content, [:write])
 
-        get_input(day, year)
+        get_input(year, day)
     end
   end
 
+  # Has some error text if parsing is added https://github.com/toblu/advent-of-code-client/blob/b1bcd5833353c6fce41d521737dce4e5ce6d53e0/src/util/api.ts#L114
   defp parse_nodes_to_text(nodes) do
     nodes
     |> Enum.map(fn node ->

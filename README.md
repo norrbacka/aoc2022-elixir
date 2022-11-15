@@ -8,7 +8,13 @@ Set it as en environment variable like this 'export SESSION = "VALUE"'
 
 Then run the program using iex -S mix, and call the get method to get the answer, and the submit answer to post it to AoC website.
 
-`Aoc.get(1, 2, 2018) |> Aoc.submit`
+`Aoc.get 180101 |> Aoc.submit`
+
+We follow the principle YYDDLL where
+
+YY = Two last digit of the year, so for 2018 it would be 18
+DD = The days number in two digits, so for 24th of december it would be 24
+LL = Two digit number representing the level, meaning either 01 or 02
 
 ## Progress 2022
 
