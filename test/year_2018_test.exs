@@ -1,4 +1,4 @@
-defmodule AocTest do
+defmodule Year18Day01 do
   use ExUnit.Case
   doctest Aoc
 

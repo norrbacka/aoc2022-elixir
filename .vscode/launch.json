@@ -22,7 +22,7 @@
             "projectDir": "${workspaceRoot}",
             "requireFiles": [
                 "test/**/test_helper.exs",
-                "test/**/*_test.exs"
+                "test/**/*Test.exs"
             ]
         }
     ]
