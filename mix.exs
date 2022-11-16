@@ -14,6 +14,7 @@ defmodule Aoc.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {Aoc, []},
       applications: [:httpoison],
       extra_applications: [:logger, :floki]
     ]
