@@ -51,7 +51,7 @@ LL = Two digit number representing the level, meaning either 01 or 02
 In order to test this before AoC 2022, I decided to solve for 2018.
 
 :star::star: [Day 1](/lib/solutions/Solutions.Year2018.Day01.ex) \
-:x::x: Day 2 \
+:star::star: [Day 2](/lib/solutions/Solutions.Year2018.Day02.ex) \
 :x::x: Day 3 \
 :x::x: Day 4 \
 :x::x: Day 5 \
