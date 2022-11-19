@@ -2,6 +2,7 @@ defmodule Year18Day01 do
   use ExUnit.Case
   doctest Aoc
   doctest Solutions.Year2018.Day02
+  doctest NoMatterHowYouSliceIt
 
   test "18_01_01" do
     assert 490 == Aoc.get(18_01_01).answer

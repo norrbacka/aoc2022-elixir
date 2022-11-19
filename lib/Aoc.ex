@@ -3,8 +3,13 @@ defmodule Aoc do
   This is the main Advent Of Code module that wraps everything
   """
   import Helpers
+
+  # 2018 Solutions
   use Solutions.Year2018.Day01
   use Solutions.Year2018.Day02
+  use Solutions.Year2018.Day03
+
+  # 2022 Solutions
   use Solutions.Year2022.Day01
   use Solutions.Year2022.Day02
   use Solutions.Year2022.Day03
