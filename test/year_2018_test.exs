@@ -25,4 +25,19 @@ defmodule Year18Day01 do
     sln = Solutions.Year2018.Day02.partOne(input)
     assert 12 = sln
   end
+
+  test "18_02_02_test_data" do
+    input = """
+    abcde
+    fghij
+    klmno
+    pqrst
+    fguij
+    axcye
+    wvxyz
+    """
+
+    sln = Solutions.Year2018.Day02.partTwo(input)
+    assert "fgij" = sln
+  end
 end

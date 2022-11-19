@@ -11,7 +11,7 @@ defmodule Solutions.Year2018.Day02 do
       end
 
       def solve(input, 18_02_02) do
-        "not implemented"
+        partTwo(input)
       end
     end
   end
@@ -63,5 +63,49 @@ defmodule Solutions.Year2018.Day02 do
       |> Enum.sum()
 
     twos * threes
+  end
+
+  def partTwo(input) do
+    letters =
+      input
+      |> String.split()
+      |> Enum.map(&String.codepoints/1)
+
+    with_only_one_diff =
+      letters
+      |> Enum.filter(fn a ->
+        Enum.any?(letters, fn b ->
+          is_only_one_diff?(a, b)
+        end)
+      end)
+
+    [first, second] = with_only_one_diff
+
+    for i <- Enum.to_list(0..(length(first) - 1)) do
+      x = Enum.at(first, i)
+      y = Enum.at(second, i)
+
+      if x == y do
+        x
+      else
+        nil
+      end
+    end
+    |> Enum.filter(fn x -> x != nil end)
+    |> Enum.join()
+  end
+
+  def is_only_one_diff?(a, b) do
+    for i <- Enum.to_list(0..(length(a) - 1)) do
+      x = Enum.at(a, i)
+      y = Enum.at(b, i)
+
+      if x != y do
+        1
+      else
+        0
+      end
+    end
+    |> Enum.sum() == 1
   end
 end
