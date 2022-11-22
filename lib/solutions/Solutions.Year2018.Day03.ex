@@ -9,7 +9,7 @@ defmodule Solutions.Year2018.Day03 do
       end
 
       def solve(input, 18_03_02) do
-        # partTwo(input)
+        NoMatterHowYouSliceIt.partTwo(input)
       end
     end
   end
@@ -68,5 +68,29 @@ defmodule NoMatterHowYouSliceIt do
       |> Enum.filter(fn x -> x != nil end)
 
     map
+  end
+
+  def partTwo(input) do
+    maps =
+      input
+      |> String.trim()
+      |> String.split("\n")
+      |> Enum.map(fn row ->
+        parsed = parse_instruction(String.trim(row))
+        %{id: parsed.id, map: MapSet.new(mapify(parsed))}
+      end)
+
+    without_intersection =
+      Stream.filter(maps, fn map ->
+        Enum.any?(maps, fn compare ->
+          map != compare and
+            MapSet.intersection(compare.map, map.map)
+            |> MapSet.to_list()
+            |> length > 0
+        end) == false
+      end)
+      |> Enum.at(0)
+
+    without_intersection.id
   end
 end
