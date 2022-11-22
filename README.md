@@ -8,7 +8,7 @@ Set it as en environment variable like this 'export SESSION = "VALUE"'
 
 Then run the program using iex -S mix, and call the get method to get the answer, and the submit answer to post it to AoC website.
 
-`Aoc.get 180101 |> Aoc.submit`
+`get(180101) |> submit`
 
 We follow the principle YYDDLL where
 
