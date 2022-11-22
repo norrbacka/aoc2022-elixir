@@ -8,6 +8,7 @@ defmodule Aoc do
   use Solutions.Year2018.Day01
   use Solutions.Year2018.Day02
   use Solutions.Year2018.Day03
+  use Solutions.Year2018.Day04
 
   # 2022 Solutions
   use Solutions.Year2022.Day01
