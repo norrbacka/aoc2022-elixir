@@ -77,7 +77,8 @@ defmodule NoMatterHowYouSliceIt do
       |> String.split("\n")
       |> Enum.map(fn row ->
         parsed = parse_instruction(String.trim(row))
-        %{id: parsed.id, map: MapSet.new(mapify(parsed))}
+        [_ | id_tag] = String.codepoints(parsed.id)
+        %{id: id_tag |> Enum.join(), map: MapSet.new(mapify(parsed))}
       end)
 
     without_intersection =
