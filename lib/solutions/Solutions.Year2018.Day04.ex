@@ -19,7 +19,8 @@ defmodule SantaDateTime do
   @moduledoc """
   Santas own date time type
   """
-  import Kernel, except: [>: 2, <: 2, ==: 2, >=: 2, <=: 2]
+
+  import Kernel, except: [>: 2, <: 2, >=: 2, <=: 2]
   defstruct [:year, :month, :day, :hour, :minute]
 
   def new(date, time) do
@@ -59,14 +60,6 @@ defmodule SantaDateTime do
       a.minute < b.minute
   end
 
-  def a == b do
-    a.year == b.year &&
-      a.month == b.month &&
-      a.day == b.day &&
-      a.hour == b.hour &&
-      a.minute == b.minute
-  end
-
   def diff(a, b) do
     %SantaDateTime{
       year: abs(a.year - b.year),
@@ -89,6 +82,28 @@ defmodule SantaDateTime do
       day * 24 * 60 +
       hour * 60 +
       minute
+  end
+
+  def minutes_between(%SantaDateTime{} = a, %SantaDateTime{} = b, minutes \\ []) do
+    {:ok, dt} = NaiveDateTime.new(b.year, b.month, b.day, b.hour, b.minute, 0)
+    dt = NaiveDateTime.add(dt, 60, :second)
+
+    b = %SantaDateTime{
+      year: dt.year,
+      month: dt.month,
+      day: dt.day,
+      hour: dt.hour,
+      minute: dt.minute
+    }
+
+    case Map.equal?(a, b) do
+      true ->
+        minutes
+
+      false ->
+        minutes = minutes ++ [b.minute]
+        minutes_between(a, b, minutes)
+    end
   end
 end
 
@@ -118,10 +133,10 @@ defmodule Timecard do
   @moduledoc """
   An record of a timecard for an action of an guard and its shift at a given SantaDateTime
   """
-  defstruct [:dt, :msg, :elapsed_minutes]
+  defstruct [:dt, :msg, :elapsed_minutes, :latest_dt]
 
   # Example: [1518-11-01 00:00] Guard #10 begins shift
-  def parse(input, previous_guard_id, latest_dt) do
+  def parse(input, previous_guard_id, latest_dt, with_minutes_between \\ false) do
     [raw_time, raw_msg] = String.split(input, "] ")
     [date, time] = String.replace(raw_time, "[", "") |> String.split(" ")
     dt = SantaDateTime.new(date, time)
@@ -135,7 +150,22 @@ defmodule Timecard do
         0
       end
 
-    %Timecard{dt: dt, msg: msg, elapsed_minutes: elapsed_minutes}
+    %Timecard{
+      dt: dt,
+      msg: msg,
+      elapsed_minutes: elapsed_minutes,
+      latest_dt: latest_dt
+    }
+  end
+
+  def minutes_between(a) do
+    %{dt: dt, latest_dt: latest_dt} = a
+
+    if dt != nil and latest_dt != nil do
+      SantaDateTime.minutes_between(dt, latest_dt, [latest_dt.minute])
+    else
+      []
+    end
   end
 end
 
@@ -169,6 +199,8 @@ defmodule ReposeRecord do
   end
 
   def part_one(input) do
+    IO.puts("Building timecards...")
+
     {timecards, _} =
       input
       |> String.trim()
@@ -193,11 +225,15 @@ defmodule ReposeRecord do
         {parsed, parsed}
       end)
 
+    IO.puts("Fetching guards...")
+
     guards =
       timecards
       |> Enum.map(fn tc -> tc.msg.guard_id end)
       |> Enum.filter(fn id -> id != nil end)
       |> Enum.uniq()
+
+    IO.puts("Counting...")
 
     sleeping_minutes =
       for guard <- guards do
@@ -211,10 +247,37 @@ defmodule ReposeRecord do
           |> Enum.map(fn tc -> tc.elapsed_minutes end)
           |> Enum.sum()
 
-        %{guard_id: guard, minutes_asleep: minutes_asleep}
+        %{
+          guard_id: guard,
+          minutes_asleep: minutes_asleep
+        }
       end
 
-    # Must save what minutes the guard is sleeping on, no use of use counting the difference...
+    most_sleeping_guard =
+      sleeping_minutes
+      |> Enum.sort_by(fn x -> x.minutes_asleep end, :desc)
+      |> Enum.at(0)
+
+    most_sleeping_guard_id = most_sleeping_guard.guard_id |> IO.inspect()
+
+    timecards_for_guard =
+      Enum.filter(timecards, fn tc ->
+        tc != nil &&
+          tc.msg != nil &&
+          tc.msg.guard_id == most_sleeping_guard_id
+      end)
+
+    IO.inspect(timecards_for_guard)
+
+    {most_sleeping_minute, _times} =
+      timecards_for_guard
+      |> Enum.flat_map(fn tc -> Timecard.minutes_between(tc) end)
+      |> Enum.frequencies()
+      |> Map.to_list()
+      |> Enum.sort_by(fn {minute, index} -> index end, :desc)
+      |> Enum.at(0)
+
+    most_sleeping_minute
   end
 
   def part_two(input) do
