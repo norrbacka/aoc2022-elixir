@@ -20,7 +20,7 @@ LL = Two digit number representing the level, meaning either 01 or 02
 
 ## Progress 2022
 
-:x::x: Day 1 \
+:star::star: [Day 1](/lib/solutions/Solutions.Year2022.Day01.ex) \
 :x::x: Day 2 \
 :x::x: Day 3 \
 :x::x: Day 4 \

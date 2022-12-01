@@ -11,11 +11,11 @@ defmodule Helpers do
       |> Enum.map(&String.to_integer/1)
 
     fixed_year = String.to_integer("20#{year}")
-
     [fixed_year, day, level]
   end
 
-  def get_session, do: System.get_env("SESSION")
+  def get_session,
+    do: System.get_env("SESSION")
 
   defp download(year, day) do
     IO.puts("Downloading data for year #{year} and day #{day}...")
