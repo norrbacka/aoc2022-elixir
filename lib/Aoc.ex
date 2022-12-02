@@ -4,6 +4,9 @@ defmodule Aoc do
   """
   import Helpers
 
+  # 2016 Solutions
+  use Solutions.Year2016.Day01
+
   # 2018 Solutions
   use Solutions.Year2018.Day01
   use Solutions.Year2018.Day02
