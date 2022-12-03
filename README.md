@@ -55,4 +55,4 @@ In order to test this before AoC 2022, I decided to solve for previous years
 :star::star: [2018 - Day 1](/lib/solutions/Solutions.Year2018.Day01.ex) \
 :star::star: [2018 - Day 2](/lib/solutions/Solutions.Year2018.Day02.ex) \
 :star::star: [2018 - Day 3](/lib/solutions/Solutions.Year2018.Day03.ex) \
-:star::x: [2018 - Day 3](/lib/solutions/Solutions.Year2018.Day04.ex) \
+:star::x: [2018 - Day 3](/lib/solutions/Solutions.Year2018.Day04.ex)
