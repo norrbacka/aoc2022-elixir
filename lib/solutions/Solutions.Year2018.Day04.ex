@@ -136,7 +136,7 @@ defmodule Timecard do
   defstruct [:dt, :msg, :elapsed_minutes, :latest_dt]
 
   # Example: [1518-11-01 00:00] Guard #10 begins shift
-  def parse(input, previous_guard_id, latest_dt, with_minutes_between \\ false) do
+  def parse(input, previous_guard_id, latest_dt, _with_minutes_between \\ false) do
     [raw_time, raw_msg] = String.split(input, "] ")
     [date, time] = String.replace(raw_time, "[", "") |> String.split(" ")
     dt = SantaDateTime.new(date, time)
@@ -258,7 +258,7 @@ defmodule ReposeRecord do
       |> Enum.sort_by(fn x -> x.minutes_asleep end, :desc)
       |> Enum.at(0)
 
-    most_sleeping_guard_id = most_sleeping_guard.guard_id |> IO.inspect()
+    most_sleeping_guard_id = most_sleeping_guard.guard_id
 
     timecards_for_guard =
       Enum.filter(timecards, fn tc ->
@@ -267,19 +267,18 @@ defmodule ReposeRecord do
           tc.msg.guard_id == most_sleeping_guard_id
       end)
 
-    IO.inspect(timecards_for_guard)
-
     {most_sleeping_minute, _times} =
       timecards_for_guard
       |> Enum.flat_map(fn tc -> Timecard.minutes_between(tc) end)
       |> Enum.frequencies()
       |> Map.to_list()
-      |> Enum.sort_by(fn {minute, index} -> index end, :desc)
+      |> Enum.sort_by(fn {_minute, index} -> index end, :desc)
       |> Enum.at(0)
 
     most_sleeping_minute
   end
 
-  def part_two(input) do
+  def part_two(_input) do
+    IO.puts("Unsolved")
   end
 end

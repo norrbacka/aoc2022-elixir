@@ -5,18 +5,21 @@ defmodule Solutions.Year2018.Day03 do
   defmacro __using__(_opts) do
     quote do
       def solve(input, 18_03_01) do
-        NoMatterHowYouSliceIt.partOne(input)
+        NoMatterHowYouSliceIt.part_one(input)
       end
 
       def solve(input, 18_03_02) do
-        NoMatterHowYouSliceIt.partTwo(input)
+        NoMatterHowYouSliceIt.part_two(input)
       end
     end
   end
 end
 
 defmodule NoMatterHowYouSliceIt do
-  def partOne(input) do
+  @moduledoc """
+  Helpers
+  """
+  def part_one(input) do
     maps =
       input
       |> String.trim()
@@ -55,7 +58,7 @@ defmodule NoMatterHowYouSliceIt do
     }
   end
 
-  def mapify(%{id: id, pos_x: pos_x, pos_y: pos_y, width: width, height: height}) do
+  def mapify(%{id: _id, pos_x: pos_x, pos_y: pos_y, width: width, height: height}) do
     map =
       for y <- Enum.to_list(pos_y..(pos_y + height)),
           x <- Enum.to_list(pos_x..(pos_x + width)) do
@@ -70,7 +73,7 @@ defmodule NoMatterHowYouSliceIt do
     map
   end
 
-  def partTwo(input) do
+  def part_two(input) do
     maps =
       input
       |> String.trim()
