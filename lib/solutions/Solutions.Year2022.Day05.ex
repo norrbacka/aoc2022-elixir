@@ -80,11 +80,14 @@ defmodule SupplyStacks do
       from_box = Map.get(cargo, from)
       to_box = Map.get(cargo, to)
       to_be_moved = Enum.take(from_box, count)
-      to_be_moved = if keep_order do
-        to_be_moved
-      else
-        Enum.reverse(to_be_moved)
-      end
+
+      to_be_moved =
+        if keep_order do
+          to_be_moved
+        else
+          Enum.reverse(to_be_moved)
+        end
+
       from_box = from_box -- to_be_moved
       to_box = to_be_moved ++ to_box
 
