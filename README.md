@@ -27,7 +27,7 @@ LL = Two digit number representing the level, meaning either 01 or 02
 :star::star: [Day 5](/lib/solutions/Solutions.Year2022.Day05.ex) \
 :star::star: [Day 6](/lib/solutions/Solutions.Year2022.Day06.ex) \
 :x::x: Day 7 \
-:x::x: Day 8 \
+:star::star: [Day 8](/lib/solutions/Solutions.Year2022.Day08.ex) \
 :x::x: Day 9 \
 :x::x: Day 10 \
 :x::x: Day 11 \
